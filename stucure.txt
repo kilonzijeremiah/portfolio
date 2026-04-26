@@ -1,0 +1,11 @@
+portfolio/
+│── frontend/
+│     └── index.html   (your current code)
+│
+│── backend/
+│     ├── app.py
+│     ├── heartlayer/
+│     │     └── engine.py
+│     ├── model/
+│     │     └── model.pkl
+│     └── requirements.txt
