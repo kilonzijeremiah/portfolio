@@ -198,7 +198,7 @@ button:hover {
 </header>
 
 <section id="demo" class="fade">
-    <h2 style="text-align:center;">🚀 Live Backend Engine</h2>
+    <h2 style="text-align:center;"> Live Backend Engine</h2>
 
     <div class="card" style="max-width:500px;margin:auto;">
         <input id="taskType" placeholder="Task type">
@@ -228,6 +228,9 @@ button:hover {
 </section>
 
 <script>
+// 🔗 CONNECTED BACKEND
+const BASE_URL = "https://heart-layer-production.up.railway.app";
+
 // Typing effect
 const texts = ["AI Engineer", "Building Intelligent Systems", "Backend Architect"];
 let i=0,j=0,del=false;
@@ -256,7 +259,7 @@ window.addEventListener("scroll",()=>{
     });
 });
 
-// RUN TASK
+// 🚀 RUN TASK
 async function runTask() {
     const loader = document.getElementById("loader");
     const resultBox = document.getElementById("result");
@@ -268,25 +271,46 @@ async function runTask() {
 
     const projectId = "live-" + Date.now();
 
-    await fetch("https://your-app.up.railway.app/internal/execute", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            project_id: projectId,
-            task_type: document.getElementById("taskType").value || "demo",
-            payload: JSON.parse(document.getElementById("payload").value || "{}")
-        })
-    });
+    let payloadData = {};
 
-    let status="running";
+    // ✅ Safe JSON parsing
+    try {
+        payloadData = JSON.parse(document.getElementById("payload").value || "{}");
+    } catch (e) {
+        resultBox.textContent = "❌ Invalid JSON payload";
+        loader.style.display = "none";
+        btn.disabled = false;
+        btn.innerText = "Execute";
+        return;
+    }
 
-    while(status==="running"){
-        await new Promise(r=>setTimeout(r,1500));
-        const res=await fetch(`https://your-app.up.railway.app/runtime/${projectId}`);
-        const data=await res.json();
-        status=data.status;
+    try {
+        // 🔥 Send task to backend
+        await fetch(`${BASE_URL}/internal/execute`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                project_id: projectId,
+                task_type: document.getElementById("taskType").value || "predict",
+                payload: payloadData
+            })
+        });
 
-        resultBox.textContent = JSON.stringify(data,null,2);
+        let status = "running";
+
+        // 🔁 Poll result
+        while(status === "running"){
+            await new Promise(r => setTimeout(r,1500));
+
+            const res = await fetch(`${BASE_URL}/runtime/${projectId}`);
+            const data = await res.json();
+            status = data.status;
+
+            resultBox.textContent = JSON.stringify(data, null, 2);
+        }
+
+    } catch (err) {
+        resultBox.textContent = "❌ Backend error: " + err.message;
     }
 
     loader.style.display = "none";
