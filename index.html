@@ -238,5 +238,24 @@ function toggleTheme(){
 }
 </script>
 
+    <script>
+async function runTask() {
+  const res = await fetch("https://your-app.up.railway.app/internal/execute", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      project_id: "live-demo",
+      task_type: "portfolio-test",
+      payload: {user: "visitor"}
+    })
+  });
+
+  const data = await res.json();
+  console.log(data);
+
+  alert("Task started!");
+}
+</script>
+
 </body>
 </html>
