@@ -3,56 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jeremiah Kilonzi | ML Developer</title>
+<title>Jeremiah Kilonzi | AI Engineer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --bg: #0f172a;
+    --bg: #020617;
     --card: rgba(255,255,255,0.05);
     --text: #e2e8f0;
     --accent: #6366f1;
 }
 
-body.light {
-    --bg: #f8fafc;
-    --card: rgba(0,0,0,0.05);
-    --text: #0f172a;
-}
-
+/* GLOBAL */
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: var(--bg);
+    background: radial-gradient(circle at 20% 20%, #1e293b, #020617);
     color: var(--text);
-    scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* GLOW BACKGROUND */
+.bg-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #6366f1, transparent);
+    filter: blur(120px);
+    top: -100px;
+    left: -100px;
+    animation: float 10s infinite alternate;
+}
+
+@keyframes float {
+    to { transform: translate(200px,200px); }
+}
+
+/* NAV */
 nav {
     position: fixed;
     width: 100%;
     top: 0;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     display: flex;
     justify-content: space-between;
-    padding: 15px 30px;
+    padding: 15px 40px;
     z-index: 1000;
 }
 
 nav a {
     color: var(--text);
     text-decoration: none;
-    margin: 0 10px;
-}
-
-.toggle {
-    cursor: pointer;
+    margin: 0 15px;
 }
 
 /* HERO */
 header {
     text-align: center;
-    padding: 140px 20px 80px;
+    padding: 150px 20px 80px;
 }
 
 header h1 {
@@ -69,151 +78,170 @@ header h1 {
 
 /* BUTTON */
 .btn {
-    display: inline-block;
     margin-top: 20px;
-    padding: 12px 28px;
+    padding: 14px 32px;
+    background: linear-gradient(45deg, #6366f1, #22d3ee);
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.08);
+}
+
+/* CARD */
+.card {
+    background: var(--card);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* DEMO */
+#live-demo {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    padding: 12px;
     background: var(--accent);
+    border: none;
     color: white;
     border-radius: 8px;
-    text-decoration: none;
+    cursor: pointer;
 }
 
-/* SECTIONS */
-section {
-    max-width: 1000px;
-    margin: auto;
-    padding: 60px 20px;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s;
+/* LOADER */
+#loader {
+    margin: 20px auto;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255,255,255,0.1);
+    border-top: 5px solid #6366f1;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: none;
 }
 
-section.show {
-    opacity: 1;
-    transform: translateY(0);
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* TERMINAL OUTPUT */
+#result {
+    margin-top: 15px;
+    background: black;
+    color: #00ff88;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: monospace;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 /* PROJECTS */
 .projects {
     display: grid;
     gap: 25px;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    padding: 40px;
 }
 
 .project {
-    background: var(--card);
     padding: 20px;
-    border-radius: 12px;
-    transition: 0.3s;
 }
 
-.project img {
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 10px;
+/* SCROLL ANIMATION */
+.fade {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
 }
 
-.project:hover {
-    transform: scale(1.03);
-}
-
-/* SKILLS */
-.skills span {
-    display: inline-block;
-    margin: 5px;
-    padding: 8px 14px;
-    background: var(--card);
-    border-radius: 20px;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #64748b;
+.fade.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg-glow"></div>
+
 <nav>
     <div><strong>JK</strong></div>
     <div>
+        <a href="#demo">Demo</a>
         <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <span class="toggle" onclick="toggleTheme()">🌙</span>
     </div>
 </nav>
 
 <header>
     <h1>Jeremiah Kilonzi</h1>
     <div class="typing" id="typing"></div>
-    <a href="#projects" class="btn">Explore Work</a>
+    <a href="#demo" class="btn">Launch Demo</a>
 </header>
 
-<section>
-    <h2>About</h2>
-    <p>
-        I build scalable machine learning systems and APIs that solve real-world problems.
-    </p>
+<section id="demo" class="fade">
+    <h2 style="text-align:center;">🚀 Live Backend Engine</h2>
+
+    <div class="card" style="max-width:500px;margin:auto;">
+        <input id="taskType" placeholder="Task type">
+        <textarea id="payload" placeholder='{"user":"demo"}'></textarea>
+
+        <button id="runBtn" onclick="runTask()">Execute</button>
+
+        <div id="loader"></div>
+        <pre id="result"></pre>
+    </div>
 </section>
 
-<section id="projects">
-    <h2>Projects</h2>
+<section id="projects" class="fade">
+    <h2 style="text-align:center;">Projects</h2>
 
     <div class="projects">
+        <div class="card project">
+            <h3>HEART-LAYER</h3>
+            <p>Async distributed execution system</p>
+        </div>
 
-        <div class="project">
-            <img src="https://via.placeholder.com/400x200">
+        <div class="card project">
             <h3>Fraud Detection</h3>
-            <p>ML model for fraud detection.</p>
-            <a href="#">Live</a> | 
-            <a href="https://github.com/kilonzijeremiah">Code</a>
+            <p>ML system for financial anomaly detection</p>
         </div>
-
-        <div class="project">
-            <img src="https://via.placeholder.com/400x200">
-            <h3>HEART-LAYER API</h3>
-            <p>Async execution backend system.</p>
-            <a href="#">Live</a> | 
-            <a href="https://github.com/kilonzijeremiah/HEART-LAYER">Code</a>
-        </div>
-
     </div>
 </section>
-
-<section>
-    <h2>Skills</h2>
-    <div class="skills">
-        <span>Python</span>
-        <span>FastAPI</span>
-        <span>Machine Learning</span>
-        <span>SQL</span>
-    </div>
-</section>
-
-<section id="contact">
-    <h2>Contact</h2>
-    <p>Email: kilonzijeremiah009@email.com</p>
-    <p>Phone: 0725518006</p>
-</section>
-
-<footer>
-    <p>© 2026 Jeremiah Kilonzi</p>
-</footer>
 
 <script>
-// typing
-const texts = ["Machine Learning Developer", "Building AI Systems"];
+// Typing effect
+const texts = ["AI Engineer", "Building Intelligent Systems", "Backend Architect"];
 let i=0,j=0,del=false;
 
 function type(){
     let t=texts[i];
     document.getElementById("typing").innerHTML=t.substring(0,j);
 
-    if(!del && j<t.length){j++; setTimeout(type,100);}
-    else if(del && j>0){j--; setTimeout(type,50);}
+    if(!del && j<t.length){j++; setTimeout(type,80);}
+    else if(del && j>0){j--; setTimeout(type,40);}
     else{
         del=!del;
         if(!del) i=(i+1)%texts.length;
@@ -222,38 +250,52 @@ function type(){
 }
 type();
 
-// scroll animation
-const sections=document.querySelectorAll("section");
+// Scroll animation
+const fades=document.querySelectorAll(".fade");
 window.addEventListener("scroll",()=>{
-    sections.forEach(sec=>{
-        if(sec.getBoundingClientRect().top<window.innerHeight-100){
-            sec.classList.add("show");
+    fades.forEach(el=>{
+        if(el.getBoundingClientRect().top < window.innerHeight-100){
+            el.classList.add("show");
         }
     });
 });
 
-// theme toggle
-function toggleTheme(){
-    document.body.classList.toggle("light");
-}
-</script>
-
-    <script>
+// RUN TASK
 async function runTask() {
-  const res = await fetch("https://your-app.up.railway.app/internal/execute", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      project_id: "live-demo",
-      task_type: "portfolio-test",
-      payload: {user: "visitor"}
-    })
-  });
+    const loader = document.getElementById("loader");
+    const resultBox = document.getElementById("result");
+    const btn = document.getElementById("runBtn");
 
-  const data = await res.json();
-  console.log(data);
+    loader.style.display = "block";
+    btn.disabled = true;
+    btn.innerText = "Running...";
 
-  alert("Task started!");
+    const projectId = "live-" + Date.now();
+
+    await fetch("https://your-app.up.railway.app/internal/execute", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            project_id: projectId,
+            task_type: document.getElementById("taskType").value || "demo",
+            payload: JSON.parse(document.getElementById("payload").value || "{}")
+        })
+    });
+
+    let status="running";
+
+    while(status==="running"){
+        await new Promise(r=>setTimeout(r,1500));
+        const res=await fetch(`https://your-app.up.railway.app/runtime/${projectId}`);
+        const data=await res.json();
+        status=data.status;
+
+        resultBox.textContent = JSON.stringify(data,null,2);
+    }
+
+    loader.style.display = "none";
+    btn.disabled = false;
+    btn.innerText = "Execute";
 }
 </script>
 
