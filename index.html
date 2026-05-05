@@ -22,7 +22,6 @@
     --accent: #a78bfa;
 }
 
-/* GLOBAL */
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
@@ -30,7 +29,6 @@ body {
     color: var(--text);
 }
 
-/* MULTI GLOW (MORE DYNAMIC) */
 .bg-glow {
     position: fixed;
     width: 600px;
@@ -57,7 +55,6 @@ body {
     to { transform: translate(250px,200px); }
 }
 
-/* NAV */
 nav {
     position: fixed;
     width: 100%;
@@ -82,7 +79,6 @@ nav a:hover {
     color: white;
 }
 
-/* HERO */
 header h1 {
     font-size: 3.5rem;
     background: linear-gradient(to right, #6366f1, #22d3ee, #a78bfa);
@@ -94,7 +90,6 @@ header h1 {
     color: var(--muted);
 }
 
-/* BUTTON */
 .btn {
     margin-top: 20px;
     padding: 14px 32px;
@@ -111,7 +106,6 @@ header h1 {
     box-shadow: 0 0 40px rgba(34,211,238,0.6);
 }
 
-/* CARD (GLASS EFFECT) */
 .card {
     background: var(--card);
     backdrop-filter: blur(20px);
@@ -127,7 +121,6 @@ header h1 {
     box-shadow: 0 30px 80px rgba(0,0,0,0.7);
 }
 
-/* INPUTS */
 input, textarea {
     width: 100%;
     padding: 12px;
@@ -144,7 +137,6 @@ input:focus, textarea:focus {
     box-shadow: 0 0 10px rgba(99,102,241,0.5);
 }
 
-/* BUTTON */
 button {
     padding: 12px;
     background: linear-gradient(45deg, var(--primary), var(--secondary));
@@ -159,7 +151,6 @@ button:hover {
     box-shadow: 0 0 20px rgba(34,211,238,0.5);
 }
 
-/* TERMINAL */
 #result {
     margin-top: 15px;
     background: #020617;
@@ -168,13 +159,6 @@ button:hover {
     border-radius: 12px;
     font-family: monospace;
     border: 1px solid var(--border);
-}
-
-/* PROJECTS */
-.project h3 {
-    background: linear-gradient(to right, #22d3ee, #a78bfa);
-    -webkit-background-clip: text;
-    color: transparent;
 }
 </style>
 </head>
@@ -187,7 +171,6 @@ button:hover {
     <div><strong>JK</strong></div>
     <div>
         <a href="#demo">Demo</a>
-        <a href="#projects">Projects</a>
     </div>
 </nav>
 
@@ -195,6 +178,70 @@ button:hover {
     <h1>Jeremiah Kilonzi</h1>
     <div class="typing" id="typing"></div>
     <a href="#demo" class="btn">Launch Demo</a>
+
+    <section id="about" style="margin-top:120px;">
+  <div class="card" style="max-width:1000px;margin:auto;">
+
+    <h2 style="text-align:center;">About Me</h2>
+
+    <!-- Intro -->
+    <p style="text-align:center; max-width:700px; margin:20px auto;">
+      I am an AI Engineer specializing in distributed systems, machine learning,
+      and backend architecture. I design and build scalable systems that power
+      intelligent, real-world applications.
+    </p>
+
+    <!-- Highlights -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px;">
+      
+      <div>
+        <h3>⚡ Focus</h3>
+        <p>AI systems, backend architecture, distributed computing</p>
+      </div>
+
+      <div>
+        <h3>🚀 Strength</h3>
+        <p>Building scalable, production-ready intelligent systems</p>
+      </div>
+
+      <div>
+        <h3>🧠 Approach</h3>
+        <p>Problem-first engineering with performance and scalability in mind</p>
+      </div>
+
+    </div>
+
+    <!-- Skills -->
+    <div style="margin-top:40px;">
+      <h3 style="text-align:center;">Core Skills</h3>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px;">
+        
+        <div>
+          <strong>Languages</strong>
+          <p>Python, JavaScript</p>
+        </div>
+
+        <div>
+          <strong>Frameworks</strong>
+          <p>FastAPI, React</p>
+        </div>
+
+        <div>
+          <strong>AI / ML</strong>
+          <p>TensorFlow, Scikit-learn, NLP</p>
+        </div>
+
+        <div>
+          <strong>Tools</strong>
+          <p>Docker, Git, Redis, Celery</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
 </header>
 
 <section id="demo" class="fade">
@@ -211,27 +258,9 @@ button:hover {
     </div>
 </section>
 
-<section id="projects" class="fade">
-    <h2 style="text-align:center;">Projects</h2>
-
-    <div class="projects">
-        <div class="card project">
-            <h3>HEART-LAYER</h3>
-            <p>Async distributed execution system</p>
-        </div>
-
-        <div class="card project">
-            <h3>Fraud Detection</h3>
-            <p>ML system for financial anomaly detection</p>
-        </div>
-    </div>
-</section>
-
 <script>
-// 🔗 CONNECTED BACKEND
 const BASE_URL = "https://heart-layer-production.up.railway.app";
 
-// Typing effect
 const texts = ["AI Engineer", "Building Intelligent Systems", "Backend Architect"];
 let i=0,j=0,del=false;
 
@@ -249,7 +278,6 @@ function type(){
 }
 type();
 
-// Scroll animation
 const fades=document.querySelectorAll(".fade");
 window.addEventListener("scroll",()=>{
     fades.forEach(el=>{
@@ -259,7 +287,6 @@ window.addEventListener("scroll",()=>{
     });
 });
 
-// 🚀 RUN TASK
 async function runTask() {
     const loader = document.getElementById("loader");
     const resultBox = document.getElementById("result");
@@ -273,7 +300,6 @@ async function runTask() {
 
     let payloadData = {};
 
-    // ✅ Safe JSON parsing
     try {
         payloadData = JSON.parse(document.getElementById("payload").value || "{}");
     } catch (e) {
@@ -285,7 +311,6 @@ async function runTask() {
     }
 
     try {
-        // 🔥 Send task to backend
         await fetch(`${BASE_URL}/internal/execute`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -298,7 +323,6 @@ async function runTask() {
 
         let status = "running";
 
-        // 🔁 Poll result
         while(status === "running"){
             await new Promise(r => setTimeout(r,1500));
 
